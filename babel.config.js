@@ -4,4 +4,4 @@ module.exports = function (api) {
     presets: ['babel-preset-expo'],
   };
 };
-// chao ni ma
+// chao ni maา่เ้ก้ากด้เหา่้เหา่้
