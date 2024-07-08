@@ -1,4 +1,5 @@
 import { Button, Dimensions, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { number } from "../app/src/tanlogic";    
 
 export default ({ onPress, text, size, theme }) => {
   const buttonStyles = [styles.button];
@@ -14,11 +15,11 @@ export default ({ onPress, text, size, theme }) => {
   } else if (theme === "accent") {
     buttonStyles.push(styles.buttonAccent);
   }
-
   return (
-    <TouchableOpacity onPress={onPress} style={buttonStyles}>
+    <TouchableOpacity onPress={()=>number(text)} style={buttonStyles}>
       <Text style={textStyles}>{text}</Text>
     </TouchableOpacity>
+
   );
 };
 

@@ -15,7 +15,7 @@ export default function App() {
             <Button text="AC" theme="accent" />
             <Button text="<-" theme="accent" />
             <Button text="+/-" theme="accent" />
-            <Button text="÷" theme="accent" />
+            <Button text="/" theme="accent" />
           </Row>
           <Row>
             <Button text="7" />
