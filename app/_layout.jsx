@@ -1,40 +1,47 @@
+import { Text, View, SafeAreaView } from 'react-native';
 
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import Row from '@/components/row';
+import Button from '@/components/Button';
+import styles from '@/app/src/style';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
 
-//Dog game
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
-  );
+export default function App() {
+    return (
+      <View style={styles.container}>
+        <SafeAreaView>
+          <Text style={styles.value}>0</Text>
+          <Row>
+            <Button text="AC" theme="accent" />
+            <Button text="<-" theme="accent" />
+            <Button text="+/-" theme="accent" />
+            <Button text="÷" theme="accent" />
+          </Row>
+          <Row>
+            <Button text="7" />
+            <Button text="8" />
+            <Button text="9" />
+            <Button text="x" theme="accent" />
+          </Row>
+          <Row>
+            <Button text="4" />
+            <Button text="5" />
+            <Button text="6" />
+            <Button text="-" theme="accent" />
+          </Row>
+          <Row>
+            <Button text="1" />
+            <Button text="2" />
+            <Button text="3" />
+            <Button text="+" theme="accent" />
+          </Row>
+          <Row>
+            <Button text="%" />
+            <Button text="0" />
+            <Button text="." />
+            <Button text="=" theme="secondary" />
+          </Row>
+        </SafeAreaView>
+      </View>
+    );
 }
