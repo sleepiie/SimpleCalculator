@@ -1,5 +1,5 @@
 import { StyleSheet, } from "react-native";
-import { Dimensions } from "react-native";
+
 
 
 const styles = StyleSheet.create({
@@ -8,7 +8,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'black',
         justifyContent: 'flex-end',
-        
+        paddingBottom: 68,
+        paddingLeft: 8,
+        paddingRight: 8,
     },
     text: {
         color: '#fff',
@@ -16,11 +18,13 @@ const styles = StyleSheet.create({
     },
     value: {
         color: '#fff',
-        fontSize: 48,
+        fontSize: 65,
         textAlign: 'right',
         marginRight: 20,
         marginBottom: 10,
+        paddingBottom:12,
     },
+
 
 });
 

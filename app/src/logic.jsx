@@ -5,11 +5,19 @@ export const initialState = {
   };
   
   export const handleNumber = (value, state) => {
+    if (state.nextValueShouldReset) {
+      return {
+        ...state,
+        currentValue: `${value}`,
+        nextValueShouldReset: false,
+      };
+    }
     if (state.currentValue === "0") {
-      return { currentValue: `${value}` };
+      return { ...state,currentValue: `${value}` };
     }
   
     return {
+      ...state,
       currentValue: `${state.currentValue}${value}`,
     };
   };
@@ -19,12 +27,15 @@ export const initialState = {
   
     const current = parseFloat(currentValue);
     const previous = parseFloat(previousValue);
-    const resetState = { operator: null, previousValue: null };
-    
+    const resetState = { operator: null, previousValue: null ,nextValueShouldReset: true};
+    if (isNaN(current) || isNaN(previous)) {
+      return state;
+    }
+  
+  
     switch (operator) {
       case "+":
         return {
-        
           currentValue: `${previous + current}`,
           ...resetState,
         };
@@ -48,7 +59,18 @@ export const initialState = {
         return state;
     }
   };
-  
+  const handleRemove = (state) => {
+    if (state.currentValue.length === 1) {
+      return {
+        ...state,
+        currentValue: "0",
+      };
+    }
+    return {
+      ...state,
+      currentValue: state.currentValue.slice(0, -1),
+    };
+  };
   // calculator function
   const calculator = (type, value, state) => {
     switch (type) {
@@ -59,22 +81,28 @@ export const initialState = {
         return initialState;
       case "posneg":
         return {
+          ...state,
           currentValue: `${parseFloat(state.currentValue) * -1}`,
         };
       case "percentage":
         return {
+          ...state,
           currentValue: `${parseFloat(state.currentValue) * 0.01}`,
         };
       case "operator":
         return {
+          ...state,
           operator: value,
           previousValue: state.currentValue,
-          currentValue: '0'
+          nextValueShouldReset: true,
         };
       case "equal":
         return handleEqual(state);
+      case "remove":
+        return handleRemove(state);
       default:
         return state;
+      
     }
   };
   
