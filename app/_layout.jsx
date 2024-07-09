@@ -43,7 +43,7 @@ export default function App() {
             <Button text="+" theme="accent" onPress={() => HandleTap("operator", "+")}/>
           </Row>
           <Row>
-            <Button text="%" />
+            <Button text="%" onPress={() => HandleTap("operator", "%")}/>
             <Button text="0" onPress={() => HandleTap("number", 0)}/>
             <Button text="." onPress={() => HandleTap("number", ".")}/>
             <Button text="=" theme="secondary" onPress={() => HandleTap("equal")}/>

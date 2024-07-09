@@ -50,6 +50,11 @@ export const initialState = {
           currentValue: `${previous / current}`,
           ...resetState,
         };
+      case "%":
+        return {
+          currentValue: `${current / 100}`,
+          ...resetState
+        }
   
       default:
         return state;
@@ -83,6 +88,9 @@ export const initialState = {
           currentValue: `${parseFloat(state.currentValue) * 0.01}`,
         };
       case "operator":
+        // if (value === "%")  { 
+        //     return  handleEqual(state);
+        // }
         return {
           operator: value,
           previousValue :  null,
