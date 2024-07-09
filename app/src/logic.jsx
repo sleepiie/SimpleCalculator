@@ -5,6 +5,17 @@ export const initialState = {
   };
   
   export const handleNumber = (value, state) => {
+    if (value === ".") {
+      // Prevent adding more than one decimal point
+      if (state.currentValue.includes(".")) {
+        return state;
+      }
+      return {
+        ...state,
+        currentValue: `${state.currentValue}${value}`,
+      };
+    }
+  
     if (state.nextValueShouldReset) {
       return {
         ...state,
@@ -12,8 +23,9 @@ export const initialState = {
         nextValueShouldReset: false,
       };
     }
+  
     if (state.currentValue === "0") {
-      return { ...state,currentValue: `${value}` };
+      return { ...state, currentValue: `${value}` };
     }
   
     return {
@@ -22,43 +34,44 @@ export const initialState = {
     };
   };
   
+  
   const handleEqual = (state) => {
-    const { currentValue, previousValue, operator } = state;
-  
-    const current = parseFloat(currentValue);
-    const previous = parseFloat(previousValue);
-    const resetState = { operator: null, previousValue: null ,nextValueShouldReset: true};
-    if (isNaN(current) || isNaN(previous)) {
+  const { currentValue, previousValue, operator } = state;
+
+  const current = parseFloat(currentValue);
+  const previous = parseFloat(previousValue);
+  const resetState = { operator: null, previousValue: null, nextValueShouldReset: true };
+
+  if (isNaN(current) || isNaN(previous)) {
+    return state;
+  }
+
+  switch (operator) {
+    case "+":
+      return {
+        currentValue: `${previous + current}`,
+        ...resetState,
+      };
+    case "-":
+      return {
+        currentValue: `${previous - current}`,
+        ...resetState,
+      };
+    case "*":
+      return {
+        currentValue: `${previous * current}`,
+        ...resetState,
+      };
+    case "/":
+      return {
+        currentValue: `${previous / current}`,
+        ...resetState,
+      };
+
+    default:
       return state;
-    }
-  
-  
-    switch (operator) {
-      case "+":
-        return {
-          currentValue: `${previous + current}`,
-          ...resetState,
-        };
-      case "-":
-        return {
-          currentValue: `${previous - current}`,
-          ...resetState,
-        };
-      case "*":
-        return {
-          currentValue: `${previous * current}`,
-           ...resetState,
-        };
-      case "/":
-        return {
-          currentValue: `${previous / current}`,
-          ...resetState,
-        };
-  
-      default:
-        return state;
-    }
-  };
+  }
+};
   const handleRemove = (state) => {
     if (state.currentValue.length === 1) {
       return {

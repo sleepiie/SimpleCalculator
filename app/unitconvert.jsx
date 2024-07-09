@@ -4,7 +4,7 @@ import Row from '@/components/row';
 import Button from '@/components/Button';
 import RNPickerSelect from 'react-native-picker-select';
 import styles from '@/app/src/style';
-import convertUnits, { initialState, handleNumber, handleClear, handleRemove } from '@/app/src/unitlogic';
+import convertUnits, { initialState, handleNumber, handleRemove } from '@/app/src/unitlogic';
 
 export default function UnitConvert({ navigation }) {
   const [state, setState] = useState(initialState);
@@ -17,22 +17,35 @@ export default function UnitConvert({ navigation }) {
   };
 
   const handleConvert = () => {
-    const result = convertUnits(state.currentValue, selectedInputUnit, selectedOutputUnit);
-    setConvertedValue(result);
+      const result = convertUnits(state.currentValue, selectedInputUnit, selectedOutputUnit);
+      setConvertedValue(result);
+  };
+  const handleClearAll = () => {
+    setState(initialState);
+    setConvertedValue('0');
   };
 
+
   const unitOptions = [
-    { label: 'Meter', value: 'meter' },
     { label: 'Kilometer', value: 'kilometer' },
+    { label: 'Meter', value: 'meter' },
     { label: 'Centimeter', value: 'centimeter' },
+    { label: 'Millimeter', value: 'millimeter' },
+    { label: 'Micrometer', value: 'micrometer' },
+
   ];
+  const isUnitSelected = (unit) => !!unit;
+  const areBothUnitsSelected = selectedInputUnit && selectedOutputUnit;
 
   return (
     <View style={styles.container}>
       <SafeAreaView>
         <View style={styles.inputRow}>
           <View style={styles.numberContainer}>
-            <Text style={styles.value}>
+          <Text style={[
+              styles.value,
+              { color: isUnitSelected(selectedInputUnit) && isUnitSelected(selectedOutputUnit) ? '#FFF' : '#404040' }
+            ]}>
               {parseFloat(state.currentValue).toLocaleString()}
             </Text>
           </View>
@@ -47,7 +60,10 @@ export default function UnitConvert({ navigation }) {
         </View>
         <View style={styles.inputRow}>
           <View style={styles.numberContainer}>
-            <Text style={styles.value}>
+            <Text style={[
+              styles.value,
+              { color: isUnitSelected(selectedInputUnit) && isUnitSelected(selectedOutputUnit) ? '#FFF' : '#404040' }
+            ]}>
               {convertedValue}
             </Text>
           </View>
@@ -61,32 +77,32 @@ export default function UnitConvert({ navigation }) {
           </View>
         </View>
         
-        <Row>
-          <Button text="go to calculator" theme="accent" onPress={() => navigation.navigate("Calculator")} />
+        <Row single>
+          <Button text="cal" theme="switch" size="small" onPress={() => navigation.navigate("Calculator")}/>
         </Row>
         <Row>
-          <Button text="AC" theme="accent" onPress={() => setState(initialState)} />
-          <Button text="<-" theme="accent" onPress={() => setState(prevState => handleRemove(prevState))} />
+          <Button text="7" onPress={() => handleTap('number', '7')} disabled={!areBothUnitsSelected} />
+          <Button text="8" onPress={() => handleTap('number', '8')} disabled={!areBothUnitsSelected}/>
+          <Button text="9" onPress={() => handleTap('number', '9')} disabled={!areBothUnitsSelected}/>
+          <Button text="AC" theme="accent" onPress={handleClearAll} disabled={!areBothUnitsSelected}/>
         </Row>
         <Row>
-          <Button text="7" onPress={() => handleTap('number', '7')} />
-          <Button text="8" onPress={() => handleTap('number', '8')} />
-          <Button text="9" onPress={() => handleTap('number', '9')} />
+          <Button text="4" onPress={() => handleTap('number', '4')} disabled={!areBothUnitsSelected}/>
+          <Button text="5" onPress={() => handleTap('number', '5')} disabled={!areBothUnitsSelected}/>
+          <Button text="6" onPress={() => handleTap('number', '6')} disabled={!areBothUnitsSelected}/>
+          <Button text="<-" theme="accent" onPress={() => setState(prevState => handleRemove(prevState))} disabled={!areBothUnitsSelected}/>
         </Row>
         <Row>
-          <Button text="4" onPress={() => handleTap('number', '4')} />
-          <Button text="5" onPress={() => handleTap('number', '5')} />
-          <Button text="6" onPress={() => handleTap('number', '6')} />
+          <Button text="1" onPress={() => handleTap('number', '1')} disabled={!areBothUnitsSelected}/>
+          <Button text="2" onPress={() => handleTap('number', '2')} disabled={!areBothUnitsSelected}/>
+          <Button text="3" onPress={() => handleTap('number', '3')} disabled={!areBothUnitsSelected}/>
+          <Button text="Convert" theme="accent" onPress={handleConvert} disabled={!areBothUnitsSelected}/>  
         </Row>
         <Row>
-          <Button text="1" onPress={() => handleTap('number', '1')} />
-          <Button text="2" onPress={() => handleTap('number', '2')} />
-          <Button text="3" onPress={() => handleTap('number', '3')} />
-        </Row>
-        <Row>
-          <Button text="0" onPress={() => handleTap('number', '0')} />
-          <Button text="." onPress={() => handleTap('number', '.')} />
-          <Button text="Convert" theme="accent" onPress={handleConvert} />  
+          <Button text="00" onPress={() => handleTap('number', '00')} disabled={!areBothUnitsSelected}/>
+          <Button text="0" onPress={() => handleTap('number', '0')} disabled={!areBothUnitsSelected}/>
+          <Button text="." onPress={() => handleTap('number', '.')} disabled={!areBothUnitsSelected}/>
+          <View style={{ flex: 1 }} />
         </Row>
       </SafeAreaView>
     </View>
