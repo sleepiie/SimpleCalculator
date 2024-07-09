@@ -6,14 +6,32 @@ export const initialState = {
     meter: {
       kilometer: 0.001,
       centimeter: 100,
+      millimeter: 1000,
+      micrometer: 1000000,
     },
     kilometer: {
       meter: 1000,
       centimeter: 100000,
+      millimeter: 1000000,
+      micrometer: 1000000000,
     },
     centimeter: {
       meter: 0.01,
       kilometer: 0.00001,
+      millimeter: 10,
+      micrometer: 10000,
+    },
+    millimeter: {
+      micrometer: 1000,
+      centimeter: 0.1,
+      meter: 0.001,
+      kilometer: 1E-6,
+    },
+    micrometer: {
+      millimeter: 0.001,
+      centimeter: 1E-4,
+      meter: 1E-6,
+      kilometer: 1E-9,
     },
   };
   
@@ -30,21 +48,35 @@ export const initialState = {
     }
   
     const convertedValue = inputValue * conversionRate;
-    return convertedValue.toString();
+    let formattedValue = convertedValue.toFixed(2);
+    if (Math.abs(convertedValue) <= 1e-4) {
+      formattedValue = convertedValue.toExponential(1); // Format as scientific notation with 1 decimal place
+    }
+    if (Math.abs(convertedValue) >= 1e5) {
+      formattedValue = convertedValue.toExponential(1); // Format as scientific notation with 1 decimal place
+    }
+    return formattedValue.toString();
   };
   
   export const handleNumber = (value, state) => {
-    if (state.currentValue === "0") {
-      return { ...state, currentValue: `${value}` };
+    if (value === "00") {
+      if (state.currentValue === "0") {
+        return state; // Prevent adding "00" if current value is "0"
+      }
+      return { ...state, currentValue: `${state.currentValue}00` };
+    } else if (state.currentValue === "0") {
+      return { ...state, currentValue: value };
+    } else {
+      const newValue = `${state.currentValue}${value}`.replace(/^0+(?!\.)00/, ''); // Remove leading zeros and prevent adding "00"
+      return {
+        ...state,
+        currentValue: newValue,
+      };
     }
-    return {
-      ...state,
-      currentValue: `${state.currentValue}${value}`,
-    };
   };
   
   export const handleClear = (state) => {
-    return initialState;
+    return {initialState};
   };
   
   export const handleRemove = (state) => {
