@@ -5,13 +5,20 @@ export const initialState = {
   };
   
   export const handleNumber = (value, state) => {
-    if (state.currentValue === "0") {
+    if (state.currentValue === "0" ) {
+      if  (value === '.')
+        return {
+          currentValue: `${state.currentValue}${value}`,
+        };
+      return { currentValue: `${value}` };
+    }
+    if (state.currentValue === null ) {
       return { currentValue: `${value}` };
     }
   
     return {
       currentValue: `${state.currentValue}${value}`,
-    };
+    };//เอาเลขมาต่อกัน
   };
   
   const handleEqual = (state) => {
@@ -37,7 +44,7 @@ export const initialState = {
         return {
           currentValue: `${previous * current}`,
            ...resetState,
-        };
+        }
       case "/":
         return {
           currentValue: `${previous / current}`,
@@ -53,6 +60,16 @@ export const initialState = {
   const calculator = (type, value, state) => {
     switch (type) {
       case "number":
+        if (state.operator != null) {
+          
+            // state.currentValue = value
+            return { 
+              operator : state.operator,
+              previousValue : state.currentValue,
+              currentValue : value 
+            };
+
+        } 
         return handleNumber(value, state);
       case "clear":
         
@@ -68,8 +85,8 @@ export const initialState = {
       case "operator":
         return {
           operator: value,
-          previousValue: state.currentValue,
-          currentValue: '0'
+          previousValue :  null,
+          currentValue : state.currentValue
         };
       case "equal":
         return handleEqual(state);
