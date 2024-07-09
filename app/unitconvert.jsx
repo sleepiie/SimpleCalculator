@@ -30,28 +30,36 @@ export default function UnitConvert({ navigation }) {
   return (
     <View style={styles.container}>
       <SafeAreaView>
-        <Row>
-          <Text style={styles.value}>
-            {parseFloat(state.currentValue).toLocaleString()}
-          </Text>
-          <RNPickerSelect
-            onValueChange={(value) => setSelectedInputUnit(value)}
-            items={unitOptions}
-            style={pickerSelectStyles}
-            placeholder={{ label: 'Select Unit', value: null }}
-          />
-        </Row>
-        <Row>
-          <Text style={styles.value}>
-            {convertedValue}
-          </Text>
-          <RNPickerSelect
-            onValueChange={(value) => setSelectedOutputUnit(value)}
-            items={unitOptions}
-            style={pickerSelectStyles}
-            placeholder={{ label: 'Select Unit', value: null }}
-          />
-        </Row>
+        <View style={styles.inputRow}>
+          <View style={styles.numberContainer}>
+            <Text style={styles.value}>
+              {parseFloat(state.currentValue).toLocaleString()}
+            </Text>
+          </View>
+          <View style={styles.pickerContainer}>
+            <RNPickerSelect
+              onValueChange={(value) => setSelectedInputUnit(value)}
+              items={unitOptions}
+              style={pickerSelectStyles}
+              placeholder={{ label: 'Select Unit', value: null }}
+            />
+          </View>
+        </View>
+        <View style={styles.inputRow}>
+          <View style={styles.numberContainer}>
+            <Text style={styles.value}>
+              {convertedValue}
+            </Text>
+          </View>
+          <View style={styles.pickerContainer}>
+            <RNPickerSelect
+              onValueChange={(value) => setSelectedOutputUnit(value)}
+              items={unitOptions}
+              style={pickerSelectStyles}
+              placeholder={{ label: 'Select Unit', value: null }}
+            />
+          </View>
+        </View>
         
         <Row>
           <Button text="go to calculator" theme="accent" onPress={() => navigation.navigate("Calculator")} />
@@ -88,11 +96,15 @@ export default function UnitConvert({ navigation }) {
 const pickerSelectStyles = {
   inputIOS: {
     color: '#FFF', // iOS text color
+    textAlign: 'right', // Align text to the right
+    fontSize: 16,
   },
   inputAndroid: {
     color: '#FFF', // Android text color
+    textAlign: 'right', // Align text to the right
   },
   placeholder: {
     color: '#FFF', // Placeholder text color
+    textAlign: 'right', // Align placeholder text to the right
   },
 };

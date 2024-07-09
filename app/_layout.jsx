@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 function App() {
   return (
     <NavigationContainer independent={true}>
-      <Stack.Navigator initialRouteName='mainscreen'  screenOptions={{ headerShown: false, animationEnabled: false }}>
+      <Stack.Navigator screenOptions={{ headerShown: false, animationEnabled: false }}>
         <Stack.Screen name="Calculator" component={mainscreen} />
         <Stack.Screen name="UnitConverter" component={UnitConvert}/>
       </Stack.Navigator>
