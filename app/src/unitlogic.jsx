@@ -55,7 +55,7 @@ export const initialState = {
     if (Math.abs(convertedValue) >= 1e5) {
       formattedValue = convertedValue.toExponential(1); // Format as scientific notation with 1 decimal place
     }
-    return formattedValue.toString();
+    return parseFloat(formattedValue).toString();
   };
   
   export const handleNumber = (value, state) => {

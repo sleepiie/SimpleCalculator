@@ -10,21 +10,11 @@ export default function Mainscreen({navigation}) {
     const HandleTap = (type, value) => {
       setState((state) => calculator(type, value, state));
     };
-    const formatNumber = (value) => {
-      const numericValue = parseFloat(value);
-      if (numericValue === 0) {
-        return "0";
-      }
-      if (Math.abs(numericValue) >= 1e8 || Math.abs(numericValue) < 1e-8) {
-        return numericValue.toExponential(3); // Adjust the number of decimal places as needed
-      }
-      return numericValue.toLocaleString();
-    };
     return (
       <View style={styles.container}>
         <SafeAreaView>
           <Text style={styles.value}>
-            {formatNumber(state.currentValue)}
+            {(state.currentValue).toLocaleString()}
           </Text>
           <Row single>
             <Button text="unit" theme="switch" size="small"onPress ={() => navigation.navigate("UnitConverter")}/>

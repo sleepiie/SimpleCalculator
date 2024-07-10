@@ -47,7 +47,7 @@ export default function UnitConvert({ navigation }) {
               styles.value,
               { color: isUnitSelected(selectedInputUnit) && isUnitSelected(selectedOutputUnit) ? '#FFF' : '#404040' }
             ]}>
-              {parseFloat(state.currentValue).toLocaleString()}
+              {(state.currentValue).toLocaleString()}
             </Text>
           </View>
           <View style={styles.pickerContainer}>
