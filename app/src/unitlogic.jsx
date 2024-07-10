@@ -48,7 +48,7 @@ export const initialState = {
     }
   
     const convertedValue = inputValue * conversionRate;
-    let formattedValue = convertedValue.toFixed(2);
+    let formattedValue = convertedValue.toFixed(3);
     if (Math.abs(convertedValue) <= 1e-4) {
       formattedValue = convertedValue.toExponential(1); // Format as scientific notation with 1 decimal place
     }
@@ -64,10 +64,25 @@ export const initialState = {
         return state; // Prevent adding "00" if current value is "0"
       }
       return { ...state, currentValue: `${state.currentValue}00` };
-    } else if (state.currentValue === "0") {
+    } 
+    else if (value === ".") {
+      if (!state.currentValue.includes(".")) {
+        if (state.currentValue === "0") {
+          return { currentValue: "0." };
+        } else {
+          return { currentValue: `${state.currentValue}.` };
+        }
+      } 
+      else {
+        return state;
+      }
+    }
+    
+    else if (state.currentValue === "0") {
       return { ...state, currentValue: value };
-    } else {
-      const newValue = `${state.currentValue}${value}`.replace(/^0+(?!\.)00/, ''); // Remove leading zeros and prevent adding "00"
+    } 
+    else {
+      const newValue = `${state.currentValue}${value}`.replace(/^0+(?!\.)00/, ''); 
       return {
         ...state,
         currentValue: newValue,

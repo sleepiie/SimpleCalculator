@@ -9,8 +9,9 @@ import convertUnits, { initialState, handleNumber, handleRemove } from '@/app/sr
 export default function UnitConvert({ navigation }) {
   const [state, setState] = useState(initialState);
   const [convertedValue, setConvertedValue] = useState('0');
-  const [selectedInputUnit, setSelectedInputUnit] = useState('');
-  const [selectedOutputUnit, setSelectedOutputUnit] = useState('');
+  const [selectedInputUnit, setSelectedInputUnit] = useState('Select Unit');
+  const [selectedOutputUnit, setSelectedOutputUnit] = useState('Select Unit');
+
 
   const handleTap = (type, value) => {
     setState(prevState => handleNumber(value, prevState));
@@ -34,8 +35,8 @@ export default function UnitConvert({ navigation }) {
     { label: 'Micrometer', value: 'micrometer' },
 
   ];
-  const isUnitSelected = (unit) => !!unit;
-  const areBothUnitsSelected = selectedInputUnit && selectedOutputUnit;
+  const isUnitSelected = (unit) => unit && unit !== 'Select Unit';
+  const areBothUnitsSelected = isUnitSelected(selectedInputUnit) && isUnitSelected(selectedOutputUnit);
 
   return (
     <View style={styles.container}>
@@ -54,7 +55,7 @@ export default function UnitConvert({ navigation }) {
               onValueChange={(value) => setSelectedInputUnit(value)}
               items={unitOptions}
               style={pickerSelectStyles}
-              placeholder={{ label: 'Select Unit', value: null }}
+              placeholder={{ label: 'Select Unit', value: 'Select Unit' }}
             />
           </View>
         </View>
@@ -72,7 +73,7 @@ export default function UnitConvert({ navigation }) {
               onValueChange={(value) => setSelectedOutputUnit(value)}
               items={unitOptions}
               style={pickerSelectStyles}
-              placeholder={{ label: 'Select Unit', value: null }}
+              placeholder={{ label: 'Select Unit', value: 'Select Unit' }}
             />
           </View>
         </View>
@@ -84,7 +85,7 @@ export default function UnitConvert({ navigation }) {
           <Button text="7" onPress={() => handleTap('number', '7')} disabled={!areBothUnitsSelected} />
           <Button text="8" onPress={() => handleTap('number', '8')} disabled={!areBothUnitsSelected}/>
           <Button text="9" onPress={() => handleTap('number', '9')} disabled={!areBothUnitsSelected}/>
-          <Button text="AC" theme="accent" onPress={handleClearAll} disabled={!areBothUnitsSelected}/>
+          <Button text="AC" theme="accent" onPress={handleClearAll} />
         </Row>
         <Row>
           <Button text="4" onPress={() => handleTap('number', '4')} disabled={!areBothUnitsSelected}/>
