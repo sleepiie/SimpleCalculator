@@ -74,6 +74,10 @@ const handleEqual = (state) => {
         ...resetState,
       };
     case "/":
+      if (current == "0") return{
+        currentValue : "0"
+
+      }
       return {
         currentValue: formatValue(previous / current),
         ...resetState,
