@@ -97,7 +97,7 @@ export default function UnitConvert({ navigation }) {
           <Button text="1" onPress={() => handleTap('number', '1')} disabled={!areBothUnitsSelected}/>
           <Button text="2" onPress={() => handleTap('number', '2')} disabled={!areBothUnitsSelected}/>
           <Button text="3" onPress={() => handleTap('number', '3')} disabled={!areBothUnitsSelected}/>
-          <Button text="Convert" theme="accent" onPress={handleConvert} disabled={!areBothUnitsSelected}/>  
+          <Button text="Convert" theme="secondary" onPress={handleConvert} disabled={!areBothUnitsSelected}/>  
         </Row>
         <Row>
           <Button text="00" onPress={() => handleTap('number', '00')} disabled={!areBothUnitsSelected}/>
