@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   pickerContainer: {
-    flex: 2, // Adjust the flex value as needed
+    flex: 3, // Adjust the flex value as needed
   },
   text: {
     color: '#fff',
