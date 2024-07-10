@@ -59,16 +59,28 @@ const handleEqual = (state) => {
 
   switch (operator) {
     case "+":
+      if (current == "0") return{
+        currentValue : "0"
+
+      }
       return {
         currentValue: formatValue(previous + current),
         ...resetState,
       };
     case "-":
+      if (current == "0") return{
+        currentValue : "0"
+
+      }
       return {
         currentValue: formatValue(previous - current),
         ...resetState,
       };
     case "*":
+      if (current == "0") return{
+        currentValue : "0"
+
+      }
       return {
         currentValue: formatValue(previous * current),
         ...resetState,
