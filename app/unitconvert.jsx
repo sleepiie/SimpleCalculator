@@ -119,6 +119,7 @@ const pickerSelectStyles = {
   inputAndroid: {
     color: '#FFF', // Android text color
     textAlign: 'right', // Align text to the right
+    fontSize: 16,
   },
   placeholder: {
     color: '#FFF', // Placeholder text color

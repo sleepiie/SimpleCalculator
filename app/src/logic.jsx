@@ -39,12 +39,13 @@ const formatValue = (value) => {
   if (isNaN(num)) {
     return value;
   }
-  if (num > 1e7 || num < 1e-7) {
+  if (Math.abs(num) >= 1e7 || (Math.abs(num) < 1e-7 && num !== 0)) {
     return num.toExponential(1);
   }
   const formattedValue = num.toFixed(3);
   return parseFloat(formattedValue).toString();
 };
+
 
 const handleEqual = (state) => {
   const { currentValue, previousValue, operator } = state;

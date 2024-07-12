@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#fff",
-    fontSize: 24,
+    fontSize: 20,
   },
   textSecondary: {
     color: "white",
