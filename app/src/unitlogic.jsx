@@ -48,14 +48,15 @@ export const initialState = {
     }
   
     const convertedValue = inputValue * conversionRate;
-    let formattedValue = convertedValue.toFixed(3);
-    if (Math.abs(convertedValue) <= 1e-4) {
-      formattedValue = convertedValue.toExponential(1); // Format as scientific notation with 1 decimal place
+    let formattedValue = convertedValue.toFixed(2);
+    if (Math.abs(convertedValue) >= 1e+5) {
+      formattedValue = (convertedValue.toExponential(1)).toString(); // Format as scientific notation with 1 decimal place
     }
-    if (Math.abs(convertedValue) >= 1e5) {
-      formattedValue = convertedValue.toExponential(1); // Format as scientific notation with 1 decimal place
+    else if (Math.abs(convertedValue) <= 1e-4) {
+      formattedValue = (convertedValue.toExponential(1)).toString(); // Format as scientific notation with 1 decimal place
     }
-    return parseFloat(formattedValue).toString();
+    
+    return (formattedValue);
   };
   
   export const handleNumber = (value, state) => {
